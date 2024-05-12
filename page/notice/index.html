@@ -1,0 +1,589 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>湖南省怀化市政府采购网</title>
+    <link href="/css/css.css" rel="stylesheet" type="text/css" />
+
+    <style type="text/css">
+        h3,h2 {
+            font-size: 20px;
+        }
+
+        body,div,table,table tr td,h3,h2,span {
+            font-size: 16px;
+            margin-left: 5px;
+            margin-top: 5px;
+            text-indent: 20px;
+        }
+
+        div,h3,table,table tr td,span {
+            line-height: 28px;
+        }
+
+        .table {
+            border: 1px solid #d5d5d5;
+        }
+
+        .table tr td {
+            border: 1px solid #d5d5d5;
+        }
+    </style>
+
+    <script type="text/javascript" src="/js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="/js/koala.min.1.5.js"></script>
+    <script type="text/javascript">
+        var area_id = "110";
+        var city ="怀化市";
+        $(document).ready(function() {
+            initdate();
+        });
+
+        function initdate() {
+            var myDate = new Date();
+            var dayNames = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+            $("#date").html("欢迎进入湖南省"+city+"政府采购网！ 今天是" + myDate.getFullYear() + "年" + (myDate.getMonth() + 1) + "月" + myDate.getDate() + "日  " + dayNames[myDate.getDay()]);
+            $("#city_1").html(city);
+            $("#city_2").html(city);
+        }
+
+
+
+        //查看更多栏目
+        function viewMoreCpntent(column_code) {
+            window.open('/page/content/more_city.jsp?column_code='+column_code+'&area_id='+area_id);
+        }
+
+        //查看更多公告数据
+        function viewMore() {
+            window.open('/page/notice/more_city.jsp?area_id='+area_id);
+        }
+
+        function iFrameHeight() {
+            var ifm= document.getElementById("content");
+            setTimeout(function(){
+                var subWeb = document.frames ? document.frames["content"].document : ifm.contentDocument;
+                if(ifm&&subWeb&&subWeb.body) {
+                    var h = subWeb.body.scrollHeight;
+                    if(h < 1000){
+                        h+= 800;
+                    }
+                    ifm.height = h;
+                }
+            }, 100);
+
+        }
+
+
+        function viewNotcieContent(noticeId) {
+            window.open('/page/notice/notice_city.jsp?noticeId='+noticeId+'&area_id='+area_id);
+        }
+
+        function showlogin()
+        {
+            var url =  "https://220.168.30.70:90/w_login.jsp";
+            window.open(url);
+            //var userId = window.showModalDialog(url,"","dialogWidth=1200px;dialogHeight=600px;");
+            //var userId = "xxb";
+
+        }
+        function loginOut()
+        {
+            var url = '/mvc/loginOut.do';
+            $.post(url, {
+            }, function(data) {
+                if(data.msg=="ok")
+                {
+                    alert('已注销成功.');
+                    window.location.reload();
+                }
+
+            }, "json");
+
+        }
+
+        //关闭
+        function closeWindow(){
+            window.close();
+        }
+
+        function printPage(){
+            window.frames["content"].focus();
+            window.frames["content"].print();
+
+        }
+
+        function srh(){
+            var srh_content = $("#srh_content").val();
+            if(srh_content=="请输入关键字..."){
+                srh_content="";
+            }
+            var srh_type = $('#dbselect option:selected') .val();
+            var url = "";
+            if(srh_type=='zx'){
+                url = "/page/content/more_srh.jsp?title="+cjkEncode(srh_content);
+            }else{
+                url = "/page/notice/more4.jsp?noticeTypeID=&search_notice="+cjkEncode(srh_content);
+
+            }
+            openurl(url);
+        }
+
+        function openurl(url){
+            window.open(url);
+        }
+
+        /**
+         * 对中文进行加密，以避免乱码
+         * @param textUrl
+         * @return
+         */
+        function cjkEncode(textUrl){
+            if(textUrl == null || textUrl=="undefined"){
+                return "";
+            }
+            var newText = "";
+            for(var i=0;i<textUrl.length;i++) {
+                var code = textUrl.charCodeAt(i);
+                if(code >= 128 || code == 91 || code == 93){
+                    newText +="[" + code.toString(16) + "]";
+                }else{
+                    newText +=textUrl.charAt(i);
+                }
+            }
+            return newText;
+        }
+    </script>
+</head>
+
+<body>
+<div class="top">
+    <div class="top_one">
+        <ul class="web_link">
+            <p id="date"></p>
+            <!-- <span><a href="http://220.168.30.70:8080" target="_blank"><font style="color: #FFA500;"><b>旧网站入口</b></font></a></span> -->
+        </ul>
+    </div>
+    <div class="top_two"><img src="../../images/top_two_bg_03.jpg" height="161" width="1463"/>
+    </div>
+    <div class="nav">
+        <div class="nav_left">
+            <a href="/portal_city.jsp?area_id=110">怀化首页</a>&nbsp;|&nbsp;
+            <a href="#" onclick="viewMoreCpntent('2');">工作动态</a>&nbsp;|&nbsp;
+            <a href="#" onclick="viewMoreCpntent('3');">政策法规</a>&nbsp;|&nbsp;
+            <a href="/page/purchaseService/purchaseService.jsp?areaCode=hhs" target="_blank">购买服务</a>&nbsp;|&nbsp;
+            <a href="#" onclick="viewMore();">信息公开</a>&nbsp;|&nbsp;
+            <a href="#" onclick="viewMoreCpntent('4');">办事指南</a>&nbsp;|&nbsp;
+            <a href="#" onclick="viewMoreCpntent('6');">监督管理</a>&nbsp;|&nbsp;
+            <a href="https://hunan.zcygov.cn/"   target="_blank">电子卖场</a>&nbsp;|&nbsp;
+            <a href="#" onclick="openurl('https://220.168.30.70:90/page/portal/financeBankInfo_portal.jsp');" >合同融资</a>
+            <!-- 	<a href="#">采购协会</a>&nbsp;|&nbsp;-->
+        </div>
+        <div class="search">
+            <select name="dbselect" id="dbselect" style="float:left;width:72px!important;height:27px!important;">
+                <option value="zx">站内资讯</option>
+                <option value="gg" selected="true">采购公告</option>
+            </select>
+            <input id="srh_content" type="text" style="width:128px!important;height:27px!important;background:none!important;border:none!important;text-indent:9px; font-size:12px; color:#9fa5ab;float:left;"  value="请输入关键字..." />
+            <!-- <input class="search_kuang" name="" type="text" value="请输入关键字..." /> -->
+            <!-- <input class="allsearch" name="" type="button" value="" /> -->
+            <input id="" style="width:50px!important; height:27px!important; background:url(/images/search_butbg_05.jpg) no-repeat center; border:none!important;margin-left:1px; display:inline; color:#fff; font-size:14px; font-weight:bold; cursor:pointer;" name="" type="button" value="" onclick="srh();"/>
+        </div>
+    </div>
+</div>
+<div class="center" style="overflow: hidden;">
+    <div class="l_position">您现在的位置是：<a href="/portal_city.jsp?area_id=110">首页</a>><a href="#" class="dq">公告 </a></div>
+    <div style="width:100%;height:100%;border: 0;">
+        <p align='center' style='font-weight: bold;'>芷江县G320沥青路面中修工程(K1649+000-K1650+500、K1666+000-K1668+000、K1709+000-K1711+000)竞争性磋商邀请公告竞争性磋商成交公告</p>
+        <p align='center'>公告日期:2021年07月24日</p>
+        <div>
+            <p style='margin: 0cm 0cm 0pt; text-align: justify; text-indent: 0cm; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                    <span style="font-family: 黑体; font-size: 14pt;">
+                        <span>一、</span>
+                    </span>
+                <span style="font-family: 黑体; font-size: 14pt;">项目编号</span>
+            </p>
+            <p style='margin: 0cm 0cm 0pt; text-align: justify; text-indent: 28pt; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                <span style="font-family: 仿宋; font-size: 14pt;">1</span>
+                <span style="font-family: 仿宋; font-size: 14pt;">
+                        、政府采购计划编号：芷财采计<span>[2021]000185</span>
+                    </span>
+            </p>
+            <p style='margin: 0cm 0cm 0pt; text-align: justify; text-indent: 28pt; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                <span style="font-family: 仿宋; font-size: 14pt;">2</span>
+                <span style="font-family: 仿宋; font-size: 14pt;">
+                        、采购代理编号：<span>TJGJHH2021-020</span>
+                    </span>
+            </p>
+            <p style='margin: 0cm 0cm 0pt; text-align: justify; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                <span style="font-family: 黑体; font-size: 14pt;">二、项目名称：</span>
+                <span style="font-family: 宋体; font-size: 12pt;">
+                        芷江县<span>G320</span>
+                        沥青路面中修工程<span>(K1649+000-K1650+500</span>
+                        、<span>K1666+000-K1668+000</span>
+                        、<span>K1709+000-K1711+000)</span>
+                    </span>
+            </p>
+            <p style='margin: 0cm 0cm 0pt; text-align: justify; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                <span style="font-family: 黑体; font-size: 14pt;">三、中标（成交）信息</span>
+            </p>
+            <p style='margin: 0cm 0cm 0pt; text-align: justify; text-indent: 28pt; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                <span style="font-family: 仿宋; font-size: 14pt;">供应商名称：湖南东晖耀建设有限公司</span>
+            </p>
+            <p style='margin: 0cm 0cm 0pt; text-align: justify; text-indent: 28pt; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                    <span style="font-family: 仿宋; font-size: 14pt;">
+                        供应商地址：长沙市经济技术开发区星沙<span>1</span>
+                        区<span>9</span>
+                        栋<span>57</span>
+                        号
+                    </span>
+            </p>
+            <p style='margin: 0cm 0cm 0pt; text-align: justify; text-indent: 28pt; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                    <span style="font-family: 仿宋; font-size: 14pt;">
+                        中标（成交）金额：
+                        <u>
+                            <span>3768000.00</span>
+                            元
+                        </u>
+                    </span>
+            </p>
+            <p style='margin: 0cm 0cm 0pt; text-align: justify; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                <span style="font-family: 黑体; font-size: 14pt;">四、主要标的信息</span>
+            </p>
+            <table width="530" style="border: currentColor; border-image: none; border-collapse: collapse;" border="1" cellspacing="0" cellpadding="0">
+                <tbody>
+                <tr>
+                    <td width="530" valign="top" style="padding: 0cm 5.4pt; border: 1pt solid windowtext; border-image: none; width: 397.2pt;">
+                        <p align="center" style='margin: 0cm 0cm 0pt; text-align: center; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                            <span style="font-family: 仿宋; font-size: 14pt;">工程类</span>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="530" valign="top" style="border-width: medium 1pt 1pt; border-style: none solid solid; border-color: currentColor windowtext windowtext; padding: 0cm 5.4pt; border-image: none; width: 397.2pt;">
+                        <p style='margin: 0cm 0cm 0pt; text-align: justify; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                    <span style="font-family: 仿宋; font-size: 14pt;">
+                                        名称：芷江县<span>G320</span>
+                                        沥青路面中修工程<span>(K1649+000-K1650+500</span>
+                                        、<span>K1666+000-K1668+000</span>
+                                        、<span>K1709+000-K1711+000)</span>
+                                    </span>
+                        </p>
+                        <p style='margin: 0cm 0cm 0pt; text-align: justify; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                            <span style="font-family: 仿宋; font-size: 14pt;">施工范围：旧路面清除、路面垫层、基层、沥青混凝土路面、涵洞维修与加固、路面标线、护栏等。</span>
+                        </p>
+                        <p style='margin: 0cm 0cm 0pt; text-align: justify; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                    <span style="font-family: 仿宋; font-size: 14pt;">
+                                        施工工期：<span>60</span>
+                                        日历天
+                                    </span>
+                        </p>
+                        <p style='margin: 0cm 0cm 0pt; text-align: justify; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                            <span style="font-family: 仿宋; font-size: 14pt;">项目经理：周建文</span>
+                        </p>
+                        <p style='margin: 0cm 0cm 0pt; text-align: justify; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                    <span style="font-family: 仿宋; font-size: 14pt;">
+                                        执业证书信息：湘<span>243050804515</span>
+                                    </span>
+                        </p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p style='margin: 0cm 0cm 0pt; text-align: justify; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                <span style="font-family: 黑体; font-size: 14pt;">五、评审专家名单：</span>
+                <span style="font-family: 宋体; font-size: 12pt;">曾庆胜、宋平、易灵芝</span>
+            </p>
+            <p align="left" style='margin: 7.6pt 0cm 0pt; text-align: left; line-height: 130%; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                <span style="line-height: 130%; font-family: 黑体; font-size: 14pt;">六、代理服务收费标准及金额：</span>
+                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">
+                        本次代理服务费金额为<span>29376</span>
+                        元
+                    </span>
+            </p>
+            <p style='margin: 0cm 0cm 0pt; text-align: justify; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                <span style="font-family: 黑体; font-size: 14pt;">七、公告期限</span>
+            </p>
+            <p style='margin: 0cm 0cm 0pt; text-align: justify; text-indent: 28pt; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                    <span style="font-family: 仿宋; font-size: 14pt;">
+                        自本公告发布之日起<span>1</span>
+                        个工作日。
+                    </span>
+            </p>
+            <p style='margin: 0cm 0cm 0pt; text-align: justify; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                <span style="font-family: 黑体; font-size: 14pt;">八、其他补充事宜</span>
+            </p>
+            <p align="left" style='margin: 7.6pt 0cm 0pt; text-align: left; line-height: 130%; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">1</span>
+                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">
+                        、供应商产生方式：（ √ ）公告邀请<span>&nbsp;&nbsp;</span>
+                        （<span>&nbsp;</span>
+                        ）供应商库抽取<span>&nbsp;</span>
+                        （<span>&nbsp;</span>
+                        ）采购人、专家推荐
+                    </span>
+            </p>
+            <p align="left" style='margin: 7.6pt 0cm 0pt; text-align: left; line-height: 130%; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">2</span>
+                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">、磋商情况：</span>
+            </p>
+            <div align="center">
+                <table width="692" style="border: currentColor; border-image: none; border-collapse: collapse;" border="1" cellspacing="0" cellpadding="0">
+                    <tbody>
+                    <tr style="height: 13pt;">
+                        <td width="220" style="border-width: 1pt; border-style: solid; border-color: black windowtext black black; padding: 0cm 5.4pt; border-image: none; width: 164.65pt; height: 13pt;">
+                            <p align="center" style='margin: 0cm 0cm 0pt; text-align: center; line-height: 130%; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                <span style="line-height: 130%; font-family: 宋体; font-size: 11pt;">中标项目</span>
+                            </p>
+                        </td>
+                        <td width="209" style="border-width: 1pt 1pt 1pt medium; border-style: solid solid solid none; border-color: black black black currentColor; padding: 0cm 5.4pt; border-image: none; width: 156.75pt; height: 13pt;">
+                            <p align="center" style='margin: 0cm 0cm 0pt; text-align: center; line-height: 130%; text-indent: 12pt; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">中标候选人名称</span>
+                            </p>
+                        </td>
+                        <td width="123" style="border-width: 1pt 1pt 1pt medium; border-style: solid solid solid none; border-color: black windowtext black currentColor; padding: 0cm 5.4pt; width: 92.25pt; height: 13pt;">
+                            <p align="center" style='margin: 0cm 0cm 0pt; text-align: center; line-height: 130%; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">最终报价</span>
+                            </p>
+                        </td>
+                        <td width="59" style="border-width: 1pt 1pt 1pt medium; border-style: solid solid solid none; border-color: black black black currentColor; padding: 0cm 5.4pt; border-image: none; width: 44.6pt; height: 13pt;">
+                            <p align="center" style='margin: 0cm 0cm 0pt; text-align: center; line-height: 130%; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">得分</span>
+                            </p>
+                        </td>
+                        <td width="81" style="border-width: 1pt 1pt 1pt medium; border-style: solid solid solid none; border-color: black black black currentColor; padding: 0cm 5.4pt; border-image: none; width: 60.75pt; height: 13pt;">
+                            <p align="center" style='margin: 0cm 0cm 0pt; text-align: center; line-height: 130%; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">评审结果</span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr style="height: 22.5pt;">
+                        <td width="220" style="border-width: medium 1pt 1pt; border-style: none solid solid; border-color: currentColor windowtext black black; padding: 0cm 5.4pt; width: 164.65pt; height: 22.5pt;" rowspan="3">
+                            <p style='margin: 0cm 0cm 0pt; text-align: justify; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                        <span style="font-family: 宋体; font-size: 12pt;">
+                                            芷江县<span>G320</span>
+                                            沥青路面中修工程<span>(K1649+000-K1650+500</span>
+                                            、<span>K1666+000-K1668+000</span>
+                                            、<span>K1709+000-K1711+000)</span>
+                                        </span>
+                            </p>
+                        </td>
+                        <td width="209" style="border-width: medium 1pt 1pt medium; border-style: none solid solid none; border-color: currentColor black black currentColor; padding: 0cm 5.4pt; width: 156.75pt; height: 22.5pt;">
+                            <p style='margin: 0cm 0cm 0pt; text-align: justify; line-height: 130%; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">湖南东晖耀建设有限公司</span>
+                            </p>
+                        </td>
+                        <td width="123" style="border-width: medium 1pt 1pt medium; border-style: none solid solid none; border-color: currentColor windowtext black currentColor; padding: 0cm 5.4pt; width: 92.25pt; height: 22.5pt;">
+                            <p style='margin: 0cm 0cm 0pt; text-align: justify; line-height: 130%; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">3768000.00</span>
+                                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">元</span>
+                            </p>
+                        </td>
+                        <td width="59" style="border-width: medium 1pt 1pt medium; border-style: none solid solid none; border-color: currentColor black black currentColor; padding: 0cm 5.4pt; width: 44.6pt; height: 22.5pt;">
+                            <p style='margin: 0cm 0cm 0pt; text-align: justify; line-height: 130%; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                <span>73.02</span>
+                            </p>
+                        </td>
+                        <td width="81" style="border-width: medium 1pt 1pt medium; border-style: none solid solid none; border-color: currentColor black black currentColor; padding: 0cm 5.4pt; width: 60.75pt; height: 22.5pt;">
+                            <p align="center" style='margin: 0cm 0cm 0pt; text-align: center; line-height: 130%; text-indent: 12pt; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">第一名</span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr style="height: 19.05pt;">
+                        <td width="209" style="border-width: medium 1pt 1pt medium; border-style: none solid solid none; border-color: currentColor black black currentColor; padding: 0cm 5.4pt; width: 156.75pt; height: 19.05pt;">
+                            <p style='margin: 0cm 0cm 0pt; text-align: justify; line-height: 130%; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">湖南志飞建设有限公司</span>
+                            </p>
+                        </td>
+                        <td width="123" style="border-width: medium 1pt 1pt medium; border-style: none solid solid none; border-color: currentColor windowtext black currentColor; padding: 0cm 5.4pt; width: 92.25pt; height: 19.05pt;">
+                            <p style='margin: 0cm 0cm 0pt; text-align: justify; line-height: 130%; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">3584315.00</span>
+                                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">元</span>
+                            </p>
+                        </td>
+                        <td width="59" style="border-width: medium 1pt 1pt medium; border-style: none solid solid none; border-color: currentColor black black currentColor; padding: 0cm 5.4pt; width: 44.6pt; height: 19.05pt;">
+                            <p style='margin: 0cm 0cm 0pt; text-align: justify; line-height: 130%; text-indent: 10.5pt; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                <span>69</span>
+                            </p>
+                        </td>
+                        <td width="81" style="border-width: medium 1pt 1pt medium; border-style: none solid solid none; border-color: currentColor black black currentColor; padding: 0cm 5.4pt; width: 60.75pt; height: 19.05pt;">
+                            <p align="center" style='margin: 0cm 0cm 0pt; text-align: center; line-height: 130%; text-indent: 12pt; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">第二名</span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr style="height: 15pt;">
+                        <td width="209" style="border-width: medium 1pt 1pt medium; border-style: none solid solid none; border-color: currentColor black black currentColor; padding: 0cm 5.4pt; width: 156.75pt; height: 15pt;">
+                            <p style='margin: 0cm 0cm 0pt; text-align: justify; line-height: 130%; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">湖南建瓴园林建筑有限公司</span>
+                            </p>
+                        </td>
+                        <td width="123" style="border-width: medium 1pt 1pt medium; border-style: none solid solid none; border-color: currentColor windowtext black currentColor; padding: 0cm 5.4pt; width: 92.25pt; height: 15pt;">
+                            <p style='margin: 0cm 0cm 0pt; text-align: justify; line-height: 130%; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">3768500.00</span>
+                                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">元</span>
+                            </p>
+                        </td>
+                        <td width="59" style="border-width: medium 1pt 1pt medium; border-style: none solid solid none; border-color: currentColor black black currentColor; padding: 0cm 5.4pt; width: 44.6pt; height: 15pt;">
+                            <p style='margin: 0cm 0cm 0pt; text-align: justify; line-height: 130%; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                <span>55.02</span>
+                            </p>
+                        </td>
+                        <td width="81" style="border-width: medium 1pt 1pt medium; border-style: none solid solid none; border-color: currentColor black black currentColor; padding: 0cm 5.4pt; width: 60.75pt; height: 15pt;">
+                            <p align="center" style='margin: 0cm 0cm 0pt; text-align: center; line-height: 130%; text-indent: 12pt; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                                <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">第三名</span>
+                            </p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p align="left" style='margin: 7.6pt 0cm 0pt; text-align: left; line-height: 130%; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                    <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">3</span>
+                    <span style="line-height: 130%; font-family: 宋体; font-size: 12pt;">
+                            、本公告自发布之起<span>7</span>
+                            个工作日内，参与采购活动的供应商认为采购过程和成交结果使自己权益受到损害的，可以以书面形式向采购人或采购代理机构提出质疑。
+                        </span>
+                </p>
+                <p style='margin: 0cm 0cm 0pt; text-align: justify; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>&nbsp;</p>
+                <p style='margin: 0cm 0cm 0pt; text-align: justify; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                    <span style="font-family: 黑体; font-size: 14pt;">九、凡对本次公告内容提出询问，请按以下方式联系。</span>
+                </p>
+                <h2 style="line-height: 150%; text-indent: 35pt;">
+                    <span style="line-height: 150%; font-family: 仿宋; font-size: 14pt; font-weight: normal;">1.</span>
+                    <span style="line-height: 150%; font-family: 仿宋; font-size: 14pt; font-weight: normal;">采购人信息</span>
+                </h2>
+                <p align="left" style='margin: 0cm 0cm 0pt 56.45pt; text-align: left; line-height: 150%; text-indent: -17.5pt; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                        <span style="line-height: 150%; font-family: 仿宋; font-size: 14pt;">
+                            名<span>&nbsp;&nbsp;&nbsp;</span>
+                            称：
+                        </span>
+                    <u>
+                        <span style="color: black; line-height: 150%; font-family: 仿宋; font-size: 14pt;">芷江侗族自治县公路建设养护中心</span>
+                    </u>
+                </p>
+                <p align="left" style='margin: 0cm 0cm 0pt 56.45pt; text-align: left; line-height: 150%; text-indent: -17.5pt; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                        <span style="line-height: 150%; font-family: 仿宋; font-size: 14pt;">
+                            地<span>&nbsp;&nbsp;&nbsp;</span>
+                            址：
+                        </span>
+                    <u>
+                        <span style="color: black; line-height: 150%; font-family: 仿宋; font-size: 14pt;">芷江侗族自治县公路建设养护中心</span>
+                    </u>
+                </p>
+                <p align="left" style='margin: 0cm 0cm 0pt 56.45pt; text-align: left; line-height: 150%; text-indent: -17.5pt; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                    <span style="line-height: 150%; font-family: 仿宋; font-size: 14pt;">联系方式：</span>
+                    <u>
+                        <span style="color: black; line-height: 150%; font-family: 仿宋; font-size: 14pt;">18975079580 </span>
+                    </u>
+                </p>
+                <h2 style="line-height: 150%; text-indent: 42pt;">
+                    <span style="line-height: 150%; font-family: 仿宋; font-size: 14pt; font-weight: normal;">2.</span>
+                    <span style="line-height: 150%; font-family: 仿宋; font-size: 14pt; font-weight: normal;">采购代理机构信息</span>
+                </h2>
+                <p style='margin: 0cm 0cm 0pt; text-align: justify; line-height: 150%; text-indent: 42pt; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                        <span style="line-height: 150%; font-family: 仿宋; font-size: 14pt;">
+                            名<span>&nbsp;&nbsp;&nbsp;</span>
+                            称：
+                        </span>
+                    <u>
+                        <span style="color: black; line-height: 150%; font-family: 仿宋; font-size: 14pt;">天鉴国际工程管理有限公司</span>
+                    </u>
+                </p>
+                <p style='margin: 0cm 0cm 0pt; text-align: justify; line-height: 150%; text-indent: 42pt; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                        <span style="line-height: 150%; font-family: 仿宋; font-size: 14pt;">
+                            地　<span>&nbsp;</span>
+                            址：
+                        </span>
+                    <u>
+                            <span style="color: black; line-height: 150%; font-family: 仿宋; font-size: 14pt;">
+                                怀化市湖天开发区世纪花园主楼<span>B</span>
+                                座<span>8</span>
+                                楼<span>827</span>
+                                室
+                            </span>
+                    </u>
+                    <u>
+                        <span style="line-height: 150%; font-family: 仿宋; font-size: 14pt;"></span>
+                    </u>
+                </p>
+                <p style='margin: 0cm 0cm 0pt; text-align: justify; line-height: 150%; text-indent: 42pt; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                        <span style="line-height: 150%; font-family: 仿宋; font-size: 14pt;">
+                            联系方式：
+                            <u>
+                                <span>0745-2731577</span>
+                            </u>
+                        </span>
+                </p>
+                <h2 style="line-height: 150%; text-indent: 42pt;">
+                    <span style="line-height: 150%; font-family: 仿宋; font-size: 14pt; font-weight: normal;">3.</span>
+                    <span style="line-height: 150%; font-family: 仿宋; font-size: 14pt; font-weight: normal;">项目联系方式</span>
+                </h2>
+                <p style="margin: 0cm 0cm 0pt; text-align: justify; line-height: 150%; text-indent: 42pt; font-family: 宋体; font-size: 10.5pt; -ms-text-justify: inter-ideograph;">
+                    <span style="line-height: 150%; font-family: 仿宋; font-size: 14pt;">项目联系人：</span>
+                    <u>
+                        <span style="color: black; line-height: 150%; font-family: 仿宋; font-size: 14pt;">曾女士</span>
+                    </u>
+                </p>
+                <p style='margin: 0cm 0cm 0pt; text-align: justify; line-height: 150%; text-indent: 42pt; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                        <span style="line-height: 150%; font-family: 仿宋; font-size: 14pt;">
+                            电　<span>&nbsp;</span>
+                            话：
+                            <u>
+                                <span>0745-2731577</span>
+                            </u>
+                        </span>
+                </p>
+                <p style='margin: 0cm 0cm 0pt; text-align: justify; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                    <span style="font-family: 黑体; font-size: 14pt;">十、附件</span>
+                </p>
+                <p style='margin: 0cm 0cm 0pt; text-align: justify; text-indent: 28pt; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                    <span style="font-family: 仿宋; font-size: 14pt;">1.</span>
+                    <span style="font-family: 仿宋; font-size: 14pt;">采购文件</span>
+                </p>
+                <p style='margin: 0cm 0cm 0pt; text-align: justify; text-indent: 28pt; font-family: "Times New Roman","serif"; font-size: 10.5pt; -ms-text-justify: inter-ideograph;'>
+                    <span style="font-family: 仿宋; font-size: 14pt;">3.</span>
+                    <span style="font-family: 仿宋; font-size: 14pt;">中标、成交供应商为中小企业的，应公告其《中小企业声明函》</span>
+                </p>
+            </div>
+        </div>
+        <p align='left'>此中标(成交)公告的公告期限为1个工作日</p>
+    </div>
+
+    <div class="relevant_notice">
+        <h1>附件下载：</h1>
+
+        <ul>
+
+            <li><p><a href="/mvc/downloadFile2.do?fileid=T2h5dWxGLzV2QW9CRmcrR3FFNHlVUT09" >020附件.zip</a> </p></li>
+
+        </ul>
+    </div>
+    <div class="relevant_notice">
+        <h1>相关公告:</h1>
+
+        <ul>
+
+            <li><p><b>【竞争性磋商邀请公告】</b><a href="#" onclick="viewNotcieContent(1000638099)">芷江县G320沥青路面中修工程(K1649+000-K1650+500、K1666+000-K1668+000、K1709+000-K1711+000)竞争性磋商邀请公告</a> </p><span>2021-07-09</span></li>
+
+        </ul>
+
+    </div>
+</div>
+
+<div class="foot">
+    <a href="http://czt.hunan.gov.cn/ " target="_blank">湖南省财政厅</a>&nbsp;
+    <a> |</a>&nbsp; <a href="http://www.ccgp.gov.cn" target="_blank">中国政府采购网</a>&nbsp;
+    <a> |</a>&nbsp; <a href="http://www.cgpnews.cn/" target="_blank">中国政府采购新闻网</a>&nbsp;
+    <a> |</a>&nbsp; <a href="http://www.caigou2003.com/index.html" target="_blank">政府采购信息网</a>&nbsp;
+    <a> |</a>&nbsp; <a href="https://zfcg.rednet.cn/" target="_blank">红网政府采购频道</a>&nbsp;
+    <br />Copyright© 1999-2015 Hunan Province Provincial Finance Department, All rights reserved.  版权所有：湖南省财政厅
+    <br />E-mail: hunangpa@163.com 传真: 0731-85165446  网络实名: 湖南省政府采购网
+    <br /> 湘ICP备12013273号-2
+    <br /> 推荐使用的浏览器版本为IE11、Chrome
+    <br />
+</div>
+</body>
+</html>
